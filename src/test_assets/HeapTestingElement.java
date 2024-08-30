@@ -1,11 +1,22 @@
 package test_assets;
 
-import tda.HeapElement;
+import tda.heap.HeapElement;
 
-public class HeapTestingElement extends HeapElement {
+public class HeapTestingElement implements HeapElement {
+
+    private int priority;
 
     public HeapTestingElement(int priority) {
-        super(priority);
+        this.priority = priority;
     }
 
+    @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(priority);
+    }
 }

@@ -1,5 +1,5 @@
-import tda.Heap;
-import tda.HeapMinImpl;
+import tda.heap.Heap;
+import tda.heap.HeapMinImpl;
 import test_assets.HeapTestingElement;
 
 
