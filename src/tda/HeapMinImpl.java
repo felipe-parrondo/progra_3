@@ -61,12 +61,11 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
 
     private void heapifyDown () {
         int index = 0;
-        T currentNode = heapList.get(index);
         while (hasLeftChild(index)) {
             int smallerChildIndex = ( hasRightChild(index) && leftChild(index).getPriority() > rightChild(index).getPriority() )
                     ? getRightChildIndex(index)
                     : getLeftChildIndex(index);
-            if (currentNode.getPriority() > heapList.get(smallerChildIndex).getPriority())
+            if (heapList.get(index).getPriority() > heapList.get(smallerChildIndex).getPriority())
                 swap(index, smallerChildIndex);
             else
                 break;
