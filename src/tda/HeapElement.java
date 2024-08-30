@@ -11,5 +11,8 @@ public abstract class HeapElement {
         return this.priority;
     }
 
-    public abstract HeapElement deepCopy();
+    @Override
+    public String toString() {
+        return Integer.toString(this.getPriority());
+    }
 }

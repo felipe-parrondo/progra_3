@@ -6,24 +6,25 @@ import java.util.List;
 public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
 
     private List<T> heapList;
-    private int lastIndex;
 
     public HeapMinImpl () {
         this.heapList = new ArrayList<>();
-        this.lastIndex = 0;
     }
 
     public HeapMinImpl (List<T> startingValues) {
         this.heapList = new ArrayList<>();
-        this.lastIndex = 0;
-        startingValues.forEach(value -> add(value));
+        startingValues.forEach(this::add);
     }
 
     @Override
     public void add (T element) {
         heapList.add(element);
-        lastIndex++;
         heapifyUp();
+    }
+
+    @Override
+    public void add(List<T> elementList) {
+        elementList.forEach(this::add);
     }
 
     @Override
@@ -34,36 +35,56 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
 
     @Override
     public T poll () {
-        if (heapList.isEmpty()) return null;
+        if (isEmpty())
+            return null;
         T returnItem = heapList.get(0);
-        heapList.set(0, heapList.get(lastIndex));
-        lastIndex--;
-        heapifyDown();
+        heapList.set(0, heapList.get(lastIndex()));
+        heapList.remove(lastIndex());
+        if (!isEmpty())
+            heapifyDown();
         return returnItem;
+    }
+
+    @Override
+    public Boolean isEmpty() {
+        return heapList.size() == 0;
+    }
+
+    @Override
+    public int size() {
+        return heapList.size();
+    }
+
+    public int lastIndex() {
+        return heapList.size() - 1;
     }
 
     private void heapifyDown () {
         int index = 0;
         T currentNode = heapList.get(index);
         while (hasLeftChild(index)) {
-            int smallerChild = ( hasRightChild(index) && leftChild(index).getPriority() > rightChild(index).getPriority() )
-                    ? getRightChild(index)
-                    : getLeftChild(index);
-            if (currentNode.getPriority() > heapList.get(smallerChild).getPriority()) swap(index, getParent(index));
-            else break;
-            index = smallerChild;
+            int smallerChildIndex = ( hasRightChild(index) && leftChild(index).getPriority() > rightChild(index).getPriority() )
+                    ? getRightChildIndex(index)
+                    : getLeftChildIndex(index);
+            if (currentNode.getPriority() > heapList.get(smallerChildIndex).getPriority())
+                swap(index, smallerChildIndex);
+            else
+                break;
+            index = smallerChildIndex;
         }
     }
 
     private void heapifyUp () {
-        int index = lastIndex;
-        T currentNode = heapList.get(index);
-        T parentNode = parent(index);
-        while (hasParent(index) && currentNode.getPriority() < parentNode.getPriority()) {
-            index = getParent(index);
-            currentNode = parentNode;
-            parentNode = parent(getParent(index));
-            swap(index, getParent(index));
+        int index = lastIndex();
+        if (!hasParent(index))
+            return;
+        int parentIndex = getParentIndex(index);
+        while (hasParent(index) && heapList.get(index).getPriority() <= heapList.get(parentIndex).getPriority()) {
+            if (heapList.get(index).getPriority() == heapList.get(parentIndex).getPriority())
+                break;
+            swap(index, parentIndex);
+            index = parentIndex;
+            parentIndex = getParentIndex(index);
         }
     }
 
@@ -75,38 +96,45 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
     }
 
     private T parent (int index) {
-        return this.heapList.get(getParent(index));
+        return this.heapList.get(getParentIndex(index));
     }
 
     private T leftChild (int index) {
-        return this.heapList.get(getLeftChild(index));
+        return this.heapList.get(getLeftChildIndex(index));
     }
 
     private T rightChild (int index) {
-        return this.heapList.get(getRightChild(index));
+        return this.heapList.get(getRightChildIndex(index));
     }
 
     private boolean hasParent (int index) {
-        return getParent(index) >= 0;
+        return getParentIndex(index) >= 0;
     }
 
     private boolean hasLeftChild (int index) {
-        return getLeftChild(index) <= lastIndex;
+        return getLeftChildIndex(index) <= lastIndex();
     }
 
     private boolean hasRightChild (int index) {
-        return getRightChild(index) <= lastIndex;
+        return getRightChildIndex(index) <= lastIndex();
     }
 
-    private int getParent (int index) {
+    private int getParentIndex (int index) {
         return (index - 1) / 2;
     }
 
-    private int getLeftChild (int index) {
+    private int getLeftChildIndex (int index) {
         return (index * 2) + 1;
     }
 
-    private int getRightChild (int index) {
+    private int getRightChildIndex (int index) {
         return (index * 2) + 2;
     }
+
+    //TESTING METHODS
+    @Override
+    public void printHeap () {
+        System.out.println(heapList);
+    }
 }
+
