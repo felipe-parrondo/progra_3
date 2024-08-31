@@ -55,10 +55,6 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
         return heapList.size();
     }
 
-    public int lastIndex() {
-        return heapList.size() - 1;
-    }
-
     private void heapifyDown () {
         int index = 0;
         while (hasLeftChild(index)) {
@@ -85,6 +81,10 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
             index = parentIndex;
             parentIndex = getParentIndex(index);
         }
+    }
+
+    private int lastIndex() {
+        return heapList.size() - 1;
     }
 
     //HEAP HELPER METHODS

@@ -31,7 +31,8 @@ public class Main {
         heap.add(new HeapTestingElement(1));
 
         while (!heap.isEmpty()) {
-            heap.poll();
+            heap.printHeap();
+            System.out.println(heap.poll());
         }
     }
 }
