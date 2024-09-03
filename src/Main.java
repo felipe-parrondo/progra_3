@@ -1,5 +1,6 @@
 import tda.heap.Heap;
 import tda.heap.HeapMinImpl;
+import tda.huffman.Huffman;
 import test_assets.HeapTestingElement;
 
 
@@ -19,20 +20,7 @@ public class Main {
         heap.add(new HeapTestingElement(67));
         heap.add(new HeapTestingElement(85));
         heap.add(new HeapTestingElement(4654));
-        heap.add(new HeapTestingElement(11));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
-        heap.add(new HeapTestingElement(1));
 
-        while (!heap.isEmpty()) {
-            heap.printHeap();
-            System.out.println(heap.poll());
-        }
+        Huffman<HeapTestingElement> huffman = new Huffman<>(heap);
     }
 }

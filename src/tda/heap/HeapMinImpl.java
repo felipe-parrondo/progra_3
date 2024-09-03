@@ -1,6 +1,7 @@
 package tda.heap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
@@ -135,6 +136,11 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
     @Override
     public void printHeap () {
         System.out.println(heapList);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(heapList.toArray());
     }
 }
 

@@ -17,6 +17,6 @@ public class HeapTestingElement implements HeapElement {
 
     @Override
     public String toString() {
-        return Integer.toString(priority);
+        return Integer.toString(this.priority);
     }
 }

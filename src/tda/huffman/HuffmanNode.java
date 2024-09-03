@@ -2,6 +2,8 @@ package tda.huffman;
 
 import tda.heap.HeapElement;
 
+import java.util.Objects;
+
 public class HuffmanNode <T extends HeapElement> implements HeapElement {
 
     private int priority;
@@ -21,7 +23,11 @@ public class HuffmanNode <T extends HeapElement> implements HeapElement {
     }
 
     public int getNodeValuePriority() {
-        return nodeValue.getPriority();
+        return priority;
+    }
+
+    public boolean isLeaf() {
+        return Objects.isNull(leftNode) && Objects.isNull(rightNode);
     }
 
     public T getNodeValue() {
@@ -51,5 +57,10 @@ public class HuffmanNode <T extends HeapElement> implements HeapElement {
     @Override
     public int getPriority() {
         return this.priority;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.priority);
     }
 }
