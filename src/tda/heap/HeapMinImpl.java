@@ -29,7 +29,8 @@ public class HeapMinImpl <T extends HeapElement> implements Heap<T> {
 
     @Override
     public T peek () {
-        if (heapList.isEmpty()) return null;
+        if (heapList.isEmpty())
+            return null;
         return heapList.get(0);
     }
 
