@@ -4,6 +4,10 @@ import tda.heap.Heap;
 import tda.heap.HeapElement;
 import tda.heap.HeapMinImpl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
 
     private HuffmanNode<T> root;
@@ -12,8 +16,6 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
 
     public Huffman (Heap<T> heap) {
         buildTree(heap);
-        System.out.println(root.getNodeValuePriority());
-        System.out.println(root);
     }
 
     public void buildTree (Heap<T> heap) {
@@ -27,7 +29,6 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
         do {
             this.heap = heap;
             this.auxHeap = auxHeap;
-            System.out.println(this.toString());
             leftNode = evaluateElements(heap, auxHeap);
             rightNode = evaluateElements(heap, auxHeap);
             auxHeap.add(new HuffmanNode<>(leftNode.getNodeValuePriority() + rightNode.getNodeValuePriority(), null, leftNode, rightNode));
@@ -35,6 +36,13 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
                 root = auxHeap.poll();
             }
         } while (!auxHeap.isEmpty());
+        System.out.println(root);
+    }
+
+    public Map<T, Integer> getCodes () {
+        Map<T, Integer> returnMap = new HashMap<>();
+        getCodesImpl(returnMap, root, "");
+        return returnMap;
     }
 
     private HuffmanNode<T> evaluateElements (Heap<T> heap, Heap<HuffmanNode<T>> auxHeap) {
@@ -47,6 +55,15 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
             return new HuffmanNode<>(element.getPriority(), element, null, null);
         }
         return auxHeap.poll();
+    }
+
+    private void getCodesImpl (Map<T, Integer> map, HuffmanNode<T> currentNode, String code) {
+        if (currentNode.isLeaf()) {
+            map.put(currentNode.getNodeValue(), Integer.valueOf(code));
+            return;
+        }
+        getCodesImpl(map, currentNode.getLeftNode(), code.concat("0"));
+        getCodesImpl(map, currentNode.getRightNode(), code.concat("1"));
     }
 
     @Override

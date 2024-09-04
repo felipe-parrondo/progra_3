@@ -27,7 +27,7 @@ public class HuffmanNode <T extends HeapElement> implements HeapElement {
     }
 
     public boolean isLeaf() {
-        return Objects.isNull(leftNode) && Objects.isNull(rightNode);
+        return Objects.nonNull(this.nodeValue);
     }
 
     public T getNodeValue() {
