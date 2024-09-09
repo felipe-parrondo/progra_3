@@ -5,14 +5,11 @@ import tda.heap.HeapElement;
 import tda.heap.HeapMinImpl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
+public class Huffman <T extends HeapElement> {
 
     private HuffmanNode<T> root;
-    private Heap<T> heap;
-    private Heap<HuffmanNode<T>> auxHeap;
 
     public Huffman (Heap<T> heap) {
         buildTree(heap);
@@ -27,8 +24,6 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
         HuffmanNode<T> leftNode = null;
         HuffmanNode<T> rightNode = null;
         do {
-            this.heap = heap;
-            this.auxHeap = auxHeap;
             leftNode = evaluateElements(heap, auxHeap);
             rightNode = evaluateElements(heap, auxHeap);
             auxHeap.add(new HuffmanNode<>(leftNode.getNodeValuePriority() + rightNode.getNodeValuePriority(), null, leftNode, rightNode));
@@ -36,11 +31,10 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
                 root = auxHeap.poll();
             }
         } while (!auxHeap.isEmpty());
-        System.out.println(root);
     }
 
-    public Map<T, Integer> getCodes () {
-        Map<T, Integer> returnMap = new HashMap<>();
+    public Map<T, String> getCodes () {
+        Map<T, String> returnMap = new HashMap<>();
         getCodesImpl(returnMap, root, "");
         return returnMap;
     }
@@ -50,24 +44,26 @@ public class Huffman <T extends HeapElement> { //NO ANDA TODAVIA
         //a su vez, los nodos que salen de auxHeap tienen si o si los 2 hijos seteados
         if (heap.isEmpty())
             return auxHeap.poll();
-        if (auxHeap.isEmpty() || heap.peek().getPriority() < auxHeap.peek().getPriority()) {
+        if (auxHeap.isEmpty() || heap.peek().getPriority() <= auxHeap.peek().getPriority()) {
             T element = heap.poll();
             return new HuffmanNode<>(element.getPriority(), element, null, null);
         }
         return auxHeap.poll();
     }
 
-    private void getCodesImpl (Map<T, Integer> map, HuffmanNode<T> currentNode, String code) {
-        if (currentNode.isLeaf()) {
-            map.put(currentNode.getNodeValue(), Integer.valueOf(code));
-            return;
-        }
-        getCodesImpl(map, currentNode.getLeftNode(), code.concat("0"));
-        getCodesImpl(map, currentNode.getRightNode(), code.concat("1"));
+    private void getCodesImpl (Map<T, String> map, HuffmanNode<T> currentNode, String code) {
+        if (currentNode.getLeftNode().isLeaf())
+            map.put(currentNode.getLeftNode().getNodeValue(), code + "0");
+        else
+            getCodesImpl(map, currentNode.getLeftNode(), code + "0");
+        if (currentNode.getRightNode().isLeaf())
+            map.put(currentNode.getRightNode().getNodeValue(), code + "1");
+        else
+            getCodesImpl(map, currentNode.getRightNode(), code + "1");
     }
 
     @Override
     public String toString() {
-        return heap.toString() + auxHeap.toString();
+        return root.toString();
     }
 }

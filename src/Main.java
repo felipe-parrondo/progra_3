@@ -12,15 +12,15 @@ public class Main {
         Heap<HeapTestingElement> heap = new HeapMinImpl<>();
 
         heap.add(new HeapTestingElement(1));
+        heap.add(new HeapTestingElement(2));
+        heap.add(new HeapTestingElement(3));
+        heap.add(new HeapTestingElement(5));
+        heap.add(new HeapTestingElement(7));
         heap.add(new HeapTestingElement(8));
-        heap.add(new HeapTestingElement(456));
-        heap.add(new HeapTestingElement(12));
-        heap.add(new HeapTestingElement(67));
-        heap.add(new HeapTestingElement(85));
-        heap.add(new HeapTestingElement(4654));
 
         Huffman<HeapTestingElement> huffman = new Huffman<>(heap);
-        Map<HeapTestingElement, Integer> hufMap =  huffman.getCodes();
+        Map<HeapTestingElement, String> hufMap =  huffman.getCodes();
+        System.out.println(huffman);
         System.out.println(hufMap);
     }
 }
