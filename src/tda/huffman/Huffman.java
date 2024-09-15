@@ -21,11 +21,9 @@ public class Huffman <T extends HeapElement> {
             return;
         }
         Heap<HuffmanNode<T>> auxHeap = new HeapMinImpl<>();
-        HuffmanNode<T> leftNode = null;
-        HuffmanNode<T> rightNode = null;
         do {
-            leftNode = evaluateElements(heap, auxHeap);
-            rightNode = evaluateElements(heap, auxHeap);
+            HuffmanNode<T> leftNode = evaluateElements(heap, auxHeap);
+            HuffmanNode<T> rightNode = evaluateElements(heap, auxHeap);
             auxHeap.add(new HuffmanNode<>(leftNode.getNodeValuePriority() + rightNode.getNodeValuePriority(), null, leftNode, rightNode));
             if (auxHeap.size() == 1 && heap.isEmpty()) {
                 root = auxHeap.poll();
@@ -40,8 +38,6 @@ public class Huffman <T extends HeapElement> {
     }
 
     private HuffmanNode<T> evaluateElements (Heap<T> heap, Heap<HuffmanNode<T>> auxHeap) {
-        //los nodos que salen de heap tienen los 2 hijos en null porque nunca van a tener nodos hijo con el fin de respetar la regla del prefijo
-        //a su vez, los nodos que salen de auxHeap tienen si o si los 2 hijos seteados
         if (heap.isEmpty())
             return auxHeap.poll();
         if (auxHeap.isEmpty() || heap.peek().getPriority() <= auxHeap.peek().getPriority()) {
