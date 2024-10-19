@@ -3,14 +3,14 @@ package KingPathing.tda;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tablero {
+public class Board {
 
     private int n;
     private int kingX;
     private int kingY;
     private int[][] weightedBoard;
 
-    public Tablero (int n) {
+    public Board(int n) {
         this.n = n;
         this.kingX = randomNumberInteger(n + 1);
         this.kingY = randomNumberInteger(n + 1);
