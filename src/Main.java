@@ -1,14 +1,14 @@
-import tda.heap.Heap;
-import tda.heap.HeapMinImpl;
-import tda.huffman.Huffman;
-import test_assets.HeapTestingElement;
+import Huffman.tda.heap.Heap;
+import Huffman.tda.heap.HeapMinImpl;
+import Huffman.tda.huffman.Huffman;
+import Huffman.test_assets.HeapTestingElement;
 
 import java.util.Map;
 
 
 public class Main {
     public static void main(String[] args) {
-
+        /* HUFFMAN
         Heap<HeapTestingElement> heap = new HeapMinImpl<>();
 
         heap.add(new HeapTestingElement(1));
@@ -22,5 +22,8 @@ public class Main {
         Map<HeapTestingElement, String> hufMap =  huffman.getCodes();
         System.out.println(huffman);
         System.out.println(hufMap);
+        */
+
+
     }
 }

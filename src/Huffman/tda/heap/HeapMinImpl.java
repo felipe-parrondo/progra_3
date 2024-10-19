@@ -1,4 +1,4 @@
-package tda.heap;
+package Huffman.tda.heap;
 
 import java.util.ArrayList;
 import java.util.Arrays;

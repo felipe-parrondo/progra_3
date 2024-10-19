@@ -1,6 +1,6 @@
-package tda.huffman;
+package Huffman.tda.huffman;
 
-import tda.heap.HeapElement;
+import Huffman.tda.heap.HeapElement;
 
 import java.util.ArrayList;
 import java.util.Iterator;

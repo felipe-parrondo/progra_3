@@ -1,6 +1,6 @@
-package test_assets;
+package Huffman.test_assets;
 
-import tda.heap.HeapElement;
+import Huffman.tda.heap.HeapElement;
 
 public class HeapTestingElement implements HeapElement {
 

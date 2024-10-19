@@ -1,8 +1,8 @@
-package tda.huffman;
+package Huffman.tda.huffman;
 
-import tda.heap.Heap;
-import tda.heap.HeapElement;
-import tda.heap.HeapMinImpl;
+import Huffman.tda.heap.Heap;
+import Huffman.tda.heap.HeapElement;
+import Huffman.tda.heap.HeapMinImpl;
 
 import java.util.HashMap;
 import java.util.Map;
