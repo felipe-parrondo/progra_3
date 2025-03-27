@@ -2,9 +2,9 @@ import Huffman.tda.heap.Heap;
 import Huffman.tda.heap.HeapMinImpl;
 import Huffman.tda.huffman.Huffman;
 import Huffman.test_assets.HeapTestingElement;
+import KingPathing.tda.Board;
 
 import java.util.Map;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Main {
         System.out.println(huffman);
         System.out.println(hufMap);
         */
-
-
+        Board board = new Board(10);
+        board.getMinPath();
     }
 }
